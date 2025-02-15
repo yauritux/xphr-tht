@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,intellij,visualstudiocode,macos,windows,eclipse
 
 .env
+part-1/part1-data/**/*
 
 ### Eclipse ###
 .metadata
