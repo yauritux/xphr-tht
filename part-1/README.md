@@ -50,18 +50,18 @@ For example:
 ```postgresql
 SELECT
     t.employee_id,
-    (SELECT name FROM employee e WHERE e.id = t.employee_id) AS employee_name,
-    (SELECT name FROM project p WHERE p.id = t.project_id) AS project_name,
+    (SELECT name FROM employees e WHERE e.id = t.employee_id) AS employee_name,
+    (SELECT name FROM projects p WHERE p.id = t.project_id) AS project_name,
     SUM(EXTRACT(EPOCH FROM (t.time_to - t.time_from)) / 3600) AS total_hours
-FROM time_record t
+FROM time_records t
 WHERE t.time_from >= NOW() - INTERVAL '1 month'
 GROUP BY 
     t.employee_id,
-    (SELECT name FROM employee e WHERE e.id = t.employee_id),
-    (SELECT name FROM project p WHERE p.id = t.project_id)
+    (SELECT name FROM employees e WHERE e.id = t.employee_id),
+    (SELECT name FROM projects p WHERE p.id = t.project_id)
 ORDER BY
-    (SELECT name FROM employee e WHERE e.id = t.employee_id),
-    (SELECT name FROM project p WHERE p.id = t.project_id);
+    (SELECT name FROM employees e WHERE e.id = t.employee_id),
+    (SELECT name FROM projects p WHERE p.id = t.project_id);
 ```
 
 ## Your Tasks
@@ -73,3 +73,12 @@ ORDER BY
     - Suggest and implement appropriate indexing strategies.
     - Propose improvements such as materialized views, partitioning, or caching where applicable.
     - Provide a revised version of the query along with your rationale.
+
+# Solutions
+
+***I intentionally made the solutions presented in the format of RCA (Root-Cause-Analysis), 
+since this is something that I normally do in a situation where an issue is reported to me and I 
+need to provide the solution while also making all steps clear for everyone to understand through analysis process 
+to find the root cause, and what changes need to be made to solve the issue.***
+
+***Check [SOLUTIONS.md](./SOLUTIONS.md) file for more details.***
