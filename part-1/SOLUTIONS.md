@@ -72,6 +72,31 @@ The execution time is acceptable, i.e., 0.114 ms, but from the output we can see
 3. Resource Utilization:
    - Repeated subqueries and sequential scans increase CPU and memory usages which might impact system performance and lead to service unavailability.
 
+## Solution Approach
+
+To address the identified root causes, following are the proposed solutions:
+1. Add Indexes:
+   - Create index on `time_records.time_from` to improve filtering performance.
+   ```postgresql
+   CREATE INDEX idx_time_records_time_from ON time_records(time_from);
+   ```
+   - Create indexes on `time_records.employee_id` and `time_records.project_id` to optimize joins.
+   ```postgresql
+   CREATE INDEX idx_time_records_employee_id ON time_records(employee_id);
+   CREATE INDEX idx_time_records_project_id ON time_records(project_id);
+   ```
+2. Replace All Subqueries with Joins:
+   ```postgresql
+   SELECT t.employee_id, e.name AS employee_name, p.name AS project_name,
+      SUM(EXTRACT(EPOCH FROM (t.time_to - t.time_from)) / 3600) AS total_hours
+   FROM time_records t
+      JOIN employees e ON t.employee_id = e.id
+      JOIN projects p ON t.project_id = p.id
+   WHERE concat(extract('month' from t.time_from), extract('year' from t.time_from))::int = (concat(extract('month' from now()), extract('year' from now()))::int - 1)
+   GROUP BY t.employee_id, e.name, p.name
+   ORDER BY e.name, p.name;   
+   ```
+
 
 
 
