@@ -96,6 +96,26 @@ To address the identified root causes, following are the proposed solutions:
    GROUP BY t.employee_id, e.name, p.name
    ORDER BY e.name, p.name;   
    ```
+   
+Running the `EXPLAIN ANALYZE` against the query on this proposed solutions will give us the following results:
+```shell
+GroupAggregate  (cost=17.60..17.64 rows=1 width=592) (actual time=0.047..0.050 rows=2 loops=1)
+  Group Key: e.name, p.name, t.employee_id
+  ->  Sort  (cost=17.60..17.61 rows=1 width=576) (actual time=0.040..0.040 rows=3 loops=1)
+        Sort Key: e.name, p.name, t.employee_id
+        Sort Method: quicksort  Memory: 25kB
+        ->  Nested Loop  (cost=0.29..17.59 rows=1 width=576) (actual time=0.025..0.030 rows=3 loops=1)
+              ->  Nested Loop  (cost=0.15..9.33 rows=1 width=162) (actual time=0.022..0.025 rows=3 loops=1)
+                    ->  Seq Scan on time_records t  (cost=0.00..1.14 rows=1 width=24) (actual time=0.010..0.012 rows=3 loops=1)
+                          Filter: ((concat(EXTRACT(month FROM time_from), EXTRACT(year FROM time_from)))::integer = ((concat(EXTRACT(month FROM now()), EXTRACT(year FROM now())))::integer - 1))
+                    ->  Index Scan using employees_pkey on employees e  (cost=0.15..8.17 rows=1 width=146) (actual time=0.004..0.004 rows=1 loops=3)
+                          Index Cond: (id = t.employee_id)
+              ->  Index Scan using projects_pkey on projects p  (cost=0.14..8.16 rows=1 width=426) (actual time=0.001..0.001 rows=1 loops=3)
+                    Index Cond: (id = t.project_id)
+Planning Time: 0.169 ms
+Execution Time: 0.076 ms
+```
+that proves that the new query is much more efficient and faster than the original query, especially after we add the necessary indexes.
 
 
 
