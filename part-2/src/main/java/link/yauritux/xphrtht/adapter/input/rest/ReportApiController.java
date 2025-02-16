@@ -1,5 +1,6 @@
 package link.yauritux.xphrtht.adapter.input.rest;
 
+import link.yauritux.xphrtht.adapter.annotation.IsAuthenticatedUser;
 import link.yauritux.xphrtht.core.domain.dto.EmployeeTimeTrackingReportDto;
 import link.yauritux.xphrtht.core.port.input.querysvc.IReportQueryService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class ReportApiController {
 
     private final IReportQueryService reportQueryService;
 
+    @IsAuthenticatedUser
     @GetMapping
     public ResponseEntity<Page<EmployeeTimeTrackingReportDto>> getTimeTrackingReport(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startDate,
