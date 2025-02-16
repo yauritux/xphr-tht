@@ -1,11 +1,16 @@
 package link.yauritux.xphrtht.adapter.input.jspview;
 
+import link.yauritux.xphrtht.adapter.annotation.IsAuthenticatedUser;
 import link.yauritux.xphrtht.core.domain.dto.EmployeeTimeTrackingReportDto;
+import link.yauritux.xphrtht.core.domain.vo.UserRole;
 import link.yauritux.xphrtht.core.port.input.querysvc.IReportQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +30,15 @@ public class ReportWebController {
 
     private final IReportQueryService reportQueryService;
 
+    @IsAuthenticatedUser
     @GetMapping("/work_hours")
     public String getTimeTrackingReport(
             @RequestParam(required = false) LocalDateTime startDate,
             @RequestParam(required = false) LocalDateTime endDate,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size, Model model) {
+            @RequestParam(defaultValue = "10") int size,
+            @AuthenticationPrincipal UserDetails userDetails,
+            Model model) {
         if (startDate == null || endDate == null) {
             endDate = LocalDateTime.now();
             startDate = endDate.minusMonths(1);
@@ -39,6 +47,13 @@ public class ReportWebController {
         Pageable pageable = PageRequest.of(page, size);
         Page<EmployeeTimeTrackingReportDto> reportData =
                 reportQueryService.getTimeTrackingReport(startDate, endDate, pageable);
+
+        if (userDetails.getAuthorities().stream().noneMatch(u -> u.getAuthority().equals(UserRole.ADMIN.name()))) {
+            var username = userDetails.getUsername();
+            reportData = new PageImpl<>(reportData.getContent().stream()
+                    .filter(r -> r.employeeName().equalsIgnoreCase(username))
+                    .toList(), pageable, reportData.getTotalElements());
+        }
 
         model.addAttribute("reportData", reportData);
         model.addAttribute("startDate", startDate);
