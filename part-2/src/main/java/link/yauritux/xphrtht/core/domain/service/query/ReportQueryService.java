@@ -20,7 +20,7 @@ public class ReportQueryService implements IReportQueryService {
     private final TimeRecordRepository timeRecordRepository;
 
     @Override
-    public List<EmployeeTimeTrackingReportDto> getTimeTrackingReport(LocalDateTime start, LocalDateTime endDate) {
-        return List.of();
+    public List<EmployeeTimeTrackingReportDto> getTimeTrackingReport(LocalDateTime startDate, LocalDateTime endDate) {
+        return timeRecordRepository.getTimeTrackingReport(startDate, endDate);
     }
 }

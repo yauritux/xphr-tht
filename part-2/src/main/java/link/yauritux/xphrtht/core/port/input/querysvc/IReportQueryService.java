@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface IReportQueryService {
 
-    List<EmployeeTimeTrackingReportDto> getTimeTrackingReport(LocalDateTime start, LocalDateTime endDate);
+    List<EmployeeTimeTrackingReportDto> getTimeTrackingReport(LocalDateTime startDate, LocalDateTime endDate);
 }
