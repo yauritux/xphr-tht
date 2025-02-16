@@ -1,12 +1,12 @@
 package link.yauritux.xphrtht.adapter.input.jspview;
 
 import link.yauritux.xphrtht.adapter.annotation.IsAuthenticatedUser;
+import link.yauritux.xphrtht.adapter.common.PageReportFilter;
 import link.yauritux.xphrtht.core.domain.dto.EmployeeTimeTrackingReportDto;
 import link.yauritux.xphrtht.core.domain.vo.UserRole;
 import link.yauritux.xphrtht.core.port.input.querysvc.IReportQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -43,14 +43,11 @@ public class ReportWebController {
         Page<EmployeeTimeTrackingReportDto> reportData =
                 reportQueryService.getTimeTrackingReport(startDate, endDate, pageable);
 
-        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equalsIgnoreCase("ROLE_" + UserRole.ADMIN.name()));
+        var username = userDetails.getUsername();
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth ->
+                auth.getAuthority().equalsIgnoreCase("ROLE_" + UserRole.ADMIN.name()));
 
-        if (!isAdmin) {
-            var username = userDetails.getUsername();
-            reportData = new PageImpl<>(reportData.getContent().stream()
-                    .filter(r -> r.employeeName().equalsIgnoreCase(username))
-                    .toList(), pageable, reportData.getTotalElements());
-        }
+        reportData = new PageReportFilter(reportData).getReportPage(username, isAdmin, pageable);
 
         model.addAttribute("reportData", reportData);
         model.addAttribute("startDate", startDate);
@@ -58,7 +55,7 @@ public class ReportWebController {
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", size);
 
-        model.addAttribute("username", userDetails.getUsername());
+        model.addAttribute("username", username);
         model.addAttribute("role", (isAdmin ? UserRole.ADMIN.name() : UserRole.EMPLOYEE.name()));
 
         return "work_hours_report";
