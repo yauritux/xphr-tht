@@ -3,6 +3,7 @@
 
 .env
 part-1/part1-data/**/*
+part-2/target/**/*
 
 ### Eclipse ###
 .metadata
