@@ -39,11 +39,6 @@ public class ReportWebController {
             @RequestParam(defaultValue = "10") int size,
             @AuthenticationPrincipal UserDetails userDetails,
             Model model) {
-        if (startDate == null || endDate == null) {
-            endDate = LocalDateTime.now();
-            startDate = endDate.minusMonths(1);
-        }
-
         Pageable pageable = PageRequest.of(page, size);
         Page<EmployeeTimeTrackingReportDto> reportData =
                 reportQueryService.getTimeTrackingReport(startDate, endDate, pageable);

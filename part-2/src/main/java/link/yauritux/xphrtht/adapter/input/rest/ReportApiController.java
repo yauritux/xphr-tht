@@ -36,15 +36,7 @@ public class ReportApiController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endDate,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        if (startDate == null || endDate == null) {
-            endDate = LocalDateTime.now();
-            startDate = endDate.minusMonths(1);
-        }
-
         Pageable pageable = PageRequest.of(page, size);
-        Page<EmployeeTimeTrackingReportDto> reportData =
-                reportQueryService.getTimeTrackingReport(startDate, endDate, pageable);
-
         return ResponseEntity.ok(reportQueryService.getTimeTrackingReport(startDate, endDate, pageable));
     }
 }

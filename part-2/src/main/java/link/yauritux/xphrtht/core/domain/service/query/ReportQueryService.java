@@ -23,6 +23,11 @@ public class ReportQueryService implements IReportQueryService {
     @Override
     public Page<EmployeeTimeTrackingReportDto> getTimeTrackingReport(
             LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
+        if (startDate == null || endDate == null) {
+            endDate = LocalDateTime.now();
+            startDate = endDate.minusMonths(1);
+        }
+
         return timeRecordRepository.getTimeTrackingReport(startDate, endDate, pageable);
     }
 }
