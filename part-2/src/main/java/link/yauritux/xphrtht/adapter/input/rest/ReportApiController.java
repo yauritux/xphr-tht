@@ -1,5 +1,6 @@
 package link.yauritux.xphrtht.adapter.input.rest;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import link.yauritux.xphrtht.adapter.annotation.IsAuthenticatedUser;
 import link.yauritux.xphrtht.core.domain.dto.EmployeeTimeTrackingReportDto;
 import link.yauritux.xphrtht.core.port.input.querysvc.IReportQueryService;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
  */
 @RestController
 @RequestMapping("/api/v1/reports")
+@Tag(name = "Time Tracking Report API", description = "Employee Time Tracking (Working Hours) Report API")
 @RequiredArgsConstructor
 public class ReportApiController {
 
