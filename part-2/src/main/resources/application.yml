@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: "emp_time_tracking_svc"
+
+server:
+  port: 9000
