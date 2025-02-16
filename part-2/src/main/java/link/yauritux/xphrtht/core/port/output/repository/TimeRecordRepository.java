@@ -15,14 +15,14 @@ import java.util.List;
  */
 public interface TimeRecordRepository extends JpaRepository<TimeRecord, Long> {
 
-    @Query("SELECT e.name AS employeeName, p.name AS projectName," +
-            "  SUM(EXTRACT(EPOCH FROM (tr.timeTo - tr.timeFrom)) / 3600) AS totalHours " +
-            "FROM TimeRecord tr " +
-            "JOIN Employee e ON tr.employee.id = e.id " +
-            "JOIN Project p ON tr.project.id = p.id " +
-            "WHERE tr.timeFrom BETWEEN :startDate AND :endDate " +
-            "GROUP BY e.employeeName, p.projectName " +
-            "ORDER BY e.employeeName, p.projectName")
+    @Query(value = "SELECT e.name AS employeeName, p.name AS projectName," +
+            " SUM(EXTRACT(EPOCH FROM (tr.time_to - tr.time_from)) / 3600) AS totalHours " +
+            "FROM time_records tr " +
+            " JOIN employees e ON tr.employee_id = e.id " +
+            " JOIN projects p ON tr.project_id = p.id " +
+            "WHERE tr.time_from BETWEEN :startDate AND :endDate " +
+            "GROUP BY e.name, p.name " +
+            "ORDER BY e.name, p.name", nativeQuery = true)
     List<EmployeeTimeTrackingReportDto> getTimeTrackingReport(
             @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 }
