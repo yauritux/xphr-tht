@@ -41,13 +41,15 @@
 <div class="container">
     <div class="header">
         <div class="greeting">
-            Hello, <span th:text="${username}"></span>!
+            Hello, <span th:text="${username.toUpperCase()}"></span>!<br/>
+            You logged-in as an <span th:text="${role}"></span>
         </div>
         <form th:action="@{/logout}" method="post" style="display: inline;">
             <button type="submit" class="logout-btn">Logout</button>
         </form>
-<!--        <a th:href="@{/logout}" class="logout-btn">Logout</a>-->
     </div>
+
+    <hr style="border-width: thick;"/>
 
     <h1 class="text-center">Employee Work Hours (Time Tracking) Report</h1>
 

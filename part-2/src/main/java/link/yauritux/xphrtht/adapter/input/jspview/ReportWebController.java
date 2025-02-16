@@ -48,7 +48,9 @@ public class ReportWebController {
         Page<EmployeeTimeTrackingReportDto> reportData =
                 reportQueryService.getTimeTrackingReport(startDate, endDate, pageable);
 
-        if (userDetails.getAuthorities().stream().noneMatch(u -> u.getAuthority().equals(UserRole.ADMIN.name()))) {
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equalsIgnoreCase("ROLE_" + UserRole.ADMIN.name()));
+
+        if (!isAdmin) {
             var username = userDetails.getUsername();
             reportData = new PageImpl<>(reportData.getContent().stream()
                     .filter(r -> r.employeeName().equalsIgnoreCase(username))
@@ -62,6 +64,7 @@ public class ReportWebController {
         model.addAttribute("pageSize", size);
 
         model.addAttribute("username", userDetails.getUsername());
+        model.addAttribute("role", (isAdmin ? UserRole.ADMIN.name() : UserRole.EMPLOYEE.name()));
 
         return "work_hours_report";
     }
