@@ -2,12 +2,13 @@ package link.yauritux.xphrtht.core.port.output.repository;
 
 import link.yauritux.xphrtht.core.domain.dto.EmployeeTimeTrackingReportDto;
 import link.yauritux.xphrtht.core.domain.entity.TimeRecord;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author Yauri Attamimi
@@ -23,6 +24,6 @@ public interface TimeRecordRepository extends JpaRepository<TimeRecord, Long> {
             "WHERE tr.time_from BETWEEN :startDate AND :endDate " +
             "GROUP BY e.name, p.name " +
             "ORDER BY e.name, p.name", nativeQuery = true)
-    List<EmployeeTimeTrackingReportDto> getTimeTrackingReport(
-            @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+    Page<EmployeeTimeTrackingReportDto> getTimeTrackingReport(
+            @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate, Pageable pageable);
 }

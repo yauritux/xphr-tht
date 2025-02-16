@@ -1,9 +1,10 @@
 package link.yauritux.xphrtht.core.port.input.querysvc;
 
 import link.yauritux.xphrtht.core.domain.dto.EmployeeTimeTrackingReportDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author Yauri Attamimi
@@ -11,5 +12,6 @@ import java.util.List;
  */
 public interface IReportQueryService {
 
-    List<EmployeeTimeTrackingReportDto> getTimeTrackingReport(LocalDateTime startDate, LocalDateTime endDate);
+    Page<EmployeeTimeTrackingReportDto> getTimeTrackingReport(
+            LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
 }

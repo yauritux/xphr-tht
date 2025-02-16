@@ -4,10 +4,11 @@ import link.yauritux.xphrtht.core.domain.dto.EmployeeTimeTrackingReportDto;
 import link.yauritux.xphrtht.core.port.input.querysvc.IReportQueryService;
 import link.yauritux.xphrtht.core.port.output.repository.TimeRecordRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author Yauri Attamimi
@@ -20,7 +21,8 @@ public class ReportQueryService implements IReportQueryService {
     private final TimeRecordRepository timeRecordRepository;
 
     @Override
-    public List<EmployeeTimeTrackingReportDto> getTimeTrackingReport(LocalDateTime startDate, LocalDateTime endDate) {
-        return timeRecordRepository.getTimeTrackingReport(startDate, endDate);
+    public Page<EmployeeTimeTrackingReportDto> getTimeTrackingReport(
+            LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
+        return timeRecordRepository.getTimeTrackingReport(startDate, endDate, pageable);
     }
 }
