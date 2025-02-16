@@ -65,3 +65,4 @@ Following is the project structure:
    - **input**, the input adapter that is used to receive any request from the clients.
    - **output**, the output adapter that is used to write into a database, file, service, standard-output stream, etc.
 
+![Code Architecture](./xphr-hexagonal.jpg)
