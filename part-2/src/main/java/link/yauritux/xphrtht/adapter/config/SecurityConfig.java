@@ -26,7 +26,9 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth ->
                 auth.requestMatchers("/web/reports/work_hours")
                         .hasAnyRole(UserRole.EMPLOYEE.name(), UserRole.ADMIN.name()).anyRequest().permitAll()
-        ).formLogin(form -> form.loginPage("/login").permitAll()).logout(LogoutConfigurer::permitAll);
+        ).formLogin(form -> form.loginPage("/login").permitAll()
+        ).logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll());
 
         return http.build();
     }

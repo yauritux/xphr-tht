@@ -61,6 +61,8 @@ public class ReportWebController {
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", size);
 
+        model.addAttribute("username", userDetails.getUsername());
+
         return "work_hours_report";
     }
 

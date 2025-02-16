@@ -9,6 +9,23 @@
         body {
             padding: 20px;
         }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .greeting {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .logout-btn {
+            text-decoration: none;
+            color: white;
+            background-color: #dc3545;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
         .form-container {
             margin-bottom: 20px;
         }
@@ -22,6 +39,16 @@
 </head>
 <body>
 <div class="container">
+    <div class="header">
+        <div class="greeting">
+            Hello, <span th:text="${username}"></span>!
+        </div>
+        <form th:action="@{/logout}" method="post" style="display: inline;">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+<!--        <a th:href="@{/logout}" class="logout-btn">Logout</a>-->
+    </div>
+
     <h1 class="text-center">Employee Work Hours (Time Tracking) Report</h1>
 
     <!-- Date Range Form -->
