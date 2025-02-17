@@ -36,10 +36,10 @@ public class SecurityConfig {
     @Bean
     public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
         UserDetails tom = User.builder()
-                .username("tom").password(passwordEncoder.encode("tom123"))
+                .username("yauri").password(passwordEncoder.encode("yauri123"))
                 .roles(UserRole.EMPLOYEE.name()).build();
         UserDetails jerry = User.builder()
-                .username("jerry").password(passwordEncoder.encode("jerry123"))
+                .username("jacky").password(passwordEncoder.encode("jacky123"))
                 .roles(UserRole.EMPLOYEE.name()).build();
         UserDetails admin = User.builder()
                 .username("admin").password(passwordEncoder.encode("admin123"))
