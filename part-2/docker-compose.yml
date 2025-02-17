@@ -1,0 +1,43 @@
+services:
+  xphrdb:
+    image: postgres:14
+    container_name: xphrdb
+    hostname: xphrdb
+    networks:
+      - xphr
+    environment:
+      POSTGRES_USER: "${XPHR_PG_USER}"
+      POSTGRES_PASSWORD: "${XPHR_PG_PASSWORD}"
+      POSTGRES_DB: "${XPHR_PG_DB}"
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "xphr"]
+      interval: 30s
+      timeout: 60s
+      retries: 5
+      start_period: 80s
+    volumes:
+      - ./part2-data:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./db/sample_data.sql:/docker-entrypoint-initdb.d/02-sample_data.sql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    env_file:
+      - ./.env
+    networks:
+      - xphr
+    depends_on:
+      - xphrdb
+
+volumes:
+  part1-data:
+  db:
+networks:
+  xphr:
+    driver: bridge
