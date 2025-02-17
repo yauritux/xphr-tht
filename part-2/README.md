@@ -100,13 +100,16 @@ Following is the project structure:
    - Use the following credentials:
        - **ROLE_ADMIN** (username: `admin`, password: `admin123`)
        - **ROLE_EMPLOYEE** (username: `yauri`, password: `yauri123` ***OR*** username: `jacky`, password: `jacky123`)
+   ![Login Page](./login.jpg)
 2. **Generate Report**
    - Select a date range and click the "Generate Report" button.
    - The report will display total work hours per employee and project.
+   ![Report Page](./reportpage.jpg)
 3. **Pagination**
    - Use the pagination controls at the bottom of the report table to navigate between pages.
 4. **API Docs**
    - Navigate to `http://localhost:9000/swagger-ui/index.html` in your web browser.
+   ![API Docs](./apidoc.jpg)
 5. **Logout**
    - Click the "Logout" button in the top-right corner of the page.
 
