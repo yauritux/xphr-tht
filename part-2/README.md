@@ -110,6 +110,16 @@ Following is the project structure:
 5. **Logout**
    - Click the "Logout" button in the top-right corner of the page.
 
+## Endpoints
+
+| ENDPOINT                   | METHOD  | DESCRIPTION                     | ACCESS LEVEL    |
+|----------------------------|---------|---------------------------------|-----------------|
+| `/login`                   | POST    | Custom Login Page               | Public          |
+| `/logout`                  | POST    | Logout user                     | Authenticated   |
+| `/web/reports/work_hours`  | GET     | Display the work hours report   | EMPLOYEE, ADMIN |
+| `/api/v1/reports`          | GET     | REST API for work hours report  | EMPLOYEE, ADMIN |
+| `/swagger-ui/index.html`   | GET     | API Documentation               | Public          |
+
 ## Contact
 
 - Name: M. Yauri M. Attamimi
