@@ -66,3 +66,54 @@ Following is the project structure:
    - **output**, the output adapter that is used to write into a database, file, service, standard-output stream, etc.
 
 ![Code Architecture](./xphr-hexagonal.jpg)
+
+## Setup Instructions
+
+### Prerequisites
+
+1. Docker
+2. Docker compose
+
+### Steps
+
+1. Clone the repository.
+   ```shell
+   git clone https://github.com/yauritux/xphr-tht.git
+   ```
+2. Go to the project root directory.
+   ```shell
+   cd xphr-tht/part-2
+   ```
+3. Rename .env.example to .env and adjust the value as necessary.
+   ```shell
+   mv -v .env.example .env
+   ```
+4. Run docker compose.
+   ```shell
+   docker compose up -d --build
+   ```
+
+### Usage
+
+1. **Login**
+   - Navigate to the application by visiting `http://localhost:9000/login` in your web browser.
+   - Use the following credentials:
+       - **ROLE_ADMIN** (username: `admin`, password: `admin123`)
+       - **ROLE_EMPLOYEE** (username: `yauri`, password: `yauri123` ***OR*** username: `jacky`, password: `jacky123`)
+2. **Generate Report**
+   - Select a date range and click the "Generate Report" button.
+   - The report will display total work hours per employee and project.
+3. **Pagination**
+   - Use the pagination controls at the bottom of the report table to navigate between pages.
+4. **API Docs**
+   - Navigate to `http://localhost:9000/swagger-ui/index.html` in your web browser.
+5. **Logout**
+   - Click the "Logout" button in the top-right corner of the page.
+
+## Contact
+
+- Name: M. Yauri M. Attamimi
+- Email: [yaurigneel@gmail.com](mailto:yaurigneel@gmail.com)
+- Website: [yauritux.link](https://yauritux.link)
+- GitHub: [github.com/yauritux](https://github.com/yauritux)
+

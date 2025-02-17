@@ -42,7 +42,33 @@ VALUES (1, 101, 1, '2024-02-01 08:00:00', '2024-02-01 17:00:00'),
        (3, 101, 1, '2024-02-02 08:15:00', '2024-02-02 17:10:00');
 ```
 
-## Curren Inefficient Query (Intentionally Made Worse)
+## Setup Instructions
+
+### Prerequisites
+
+1. Docker
+2. Docker compose
+
+### Steps
+
+1. Clone the repository.
+   ```shell
+   git clone https://github.com/yauritux/xphr-tht.git
+   ```
+2. Go to the project root directory.
+   ```shell
+   cd xphr-tht/part-1
+   ```
+3. Rename .env.example to .env and adjust the value as necessary.
+   ```shell
+   mv -v .env.example .env
+   ```
+4. Run docker compose.
+   ```shell
+   docker compose up -d
+   ```
+
+## Current Inefficient Query (Intentionally Made Worse)
 
 Re-write the SQL command using inefficient constructs (such as multiple subqueries) so that it is non-performant.
 For example:
