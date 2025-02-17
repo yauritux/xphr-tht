@@ -2,6 +2,8 @@
 
 # Root Cause Analysis (RCA):: Performance Bottlenecks in PostgreSQL Query for Employee Time Tracking
 
+## Author: M. Yauri M. Attamimi
+
 ## Problem Statement
 
 We have a query for aggregating employee work hours over the past month that apparently takes a long time to execute, 

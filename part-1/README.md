@@ -108,3 +108,10 @@ need to provide the solution while also making all steps clear for everyone to u
 to find the root cause, and what changes need to be made to solve the issue.***
 
 ***Check [SOLUTIONS.md](./SOLUTIONS.md) file for more details.***
+
+## Contact
+
+- Name: M. Yauri M. Attamimi
+- Email: [yaurigneel@gmail.com](mailto:yaurigneel@gmail.com)
+- Website: [yauritux.link](https://yauritux.link)
+- GitHub: [github.com/yauritux](https://github.com/yauritux)
